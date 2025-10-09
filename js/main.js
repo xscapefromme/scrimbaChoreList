@@ -5,33 +5,24 @@ const listContainer = document.getElementById("listContainer")
 
 
 
-
- 
-    
-
-
-
-
 function addChores (){
-   const div = document.createElement("div")
-  div.classList.add("individualLine")  
+   const individualLineDIV = document.createElement("div")
+    individualLineDIV.classList.add("individualLine")  
 
 
     const span = document.createElement("span")
-    span.id = "choresItems"
+    span.classList.add("choresItems")
     span.textContent = inputChoresList.value
 
 
 
     const button = document.createElement("button")
-    button.id = "individualDeleteBtn-el"
+    button.classList.add("individualDeleteBtn-el")
     button.textContent = "✕"
 
-
-
-    div.append(span, button)
+    individualLineDIV.append(span, button)
    
-    listContainer.append(div)
+    listContainer.append(individualLineDIV)
 }
 
 
@@ -44,3 +35,29 @@ inputChoresList.addEventListener('keydown', function(event){
     }
 
 })
+
+
+addBtn.addEventListener('click', function(){
+    addChores()
+})
+
+deleteAllBtn.addEventListener('click', function(){
+
+    listContainer.innerHTML = ""
+})
+
+
+listContainer.addEventListener('click', function(event){
+    /* const btn = event.target.closest('.individualDeleteBtn-el')
+    if(!btn) return */
+
+    
+
+    const row = btn.closest('.individualLine')
+    console.log(row)
+
+    row.remove()
+    
+})
+
+
