@@ -127,4 +127,11 @@ font-size: clamp(1rem, 8vw,1.875rem);
 }
 
 
+.guardClause {
+    font-size: clamp(1rem, 8vw, 1.875rem);
+    color: red;
+    font-family: var(--interFont);
+    text-align: center;
+}
+
 
