@@ -1,6 +1,7 @@
 
 
 
+
 let choresLists = []
 const inputChoresList = document.getElementById("choresInput") 
     
@@ -17,8 +18,9 @@ const guardClause = document.querySelector(".guardClause")
 
 
 
-
+// So it shows visually looping through the array through forEach method
 function renderAll(arr){
+    listContainer.textContent = ""
     arr.forEach(renderRow)
 }   
 
@@ -58,25 +60,30 @@ function addChores(){
    choresLists.push(inputChoresList.value)
    localStorage.setItem("choresLists", JSON.stringify(choresLists))
 
+    
    renderRow(inputChoresList.value)   
    inputChoresList.value = ""
 
 
 
 
-console.log(choresLists)
+
 guardClause.textContent = ""
+
 }
 
 
 
 
 inputChoresList.addEventListener('keydown', function(event){
+
+
     if(event.key === 'Enter'){
         
         addChores() 
-
-    }
+        
+}
+    
 })
 
 
@@ -90,6 +97,9 @@ addBtn.addEventListener('click', function(){
 document.addEventListener("DOMContentLoaded", () => {
     const saved = JSON.parse(localStorage.getItem("choresLists") || "[]")
     choresLists = saved
+    
+    
+    
     renderAll(choresLists)
 })
 
@@ -109,20 +119,37 @@ deleteAllBtn.addEventListener('click', function(){
 
 
 
-
+// Individual Delete Line 
 listContainer.addEventListener('click', function(event){
     
     
+
+
     const btn = event.target.closest('.individualDeleteBtn-el')
     if(!btn) return
+    guardClause.textContent = ""
+
+
+    const allBtns = listContainer.querySelectorAll('button')
+
+    const btnIndex = [allBtns].indexOf(btn)
+    
+    if (btnIndex !== -1){
+        choresLists.splice(btnIndex, 1)
+    }
 
 
     const row = btn.closest('.individualLine')
-    
+
+
     row.remove()
 
-    guardClause.textContent = ""
+    localStorage.setItem("choresLists", JSON.stringify(choresLists))
     
+
+    renderAll(choresLists)
+
+    console.log(event.target, btn)
     
 })
 
