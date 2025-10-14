@@ -13,32 +13,26 @@ const listContainer = document.getElementById("listContainer")
 const guardClause = document.querySelector(".guardClause")
 
 
-let choresFromLocalStorage = JSON.parse(localStorage.getItem("choresLists"))
 
 
-if(choresFromLocalStorage){
-    choresLists = choresFromLocalStorage
-}
 
 
+
+function renderAll(arr){
+    arr.forEach(renderRow)
+}   
+
+//UI
 function renderRow(item){
- 
-
-    choresLists.push(item)
-   localStorage.setItem("choresLists", JSON.stringify(choresLists))
-    console.log(choresLists)
-   
 
 
    const individualLineDIV = document.createElement("div")
     individualLineDIV.classList.add("individualLine")  
 
 
-
     const span = document.createElement("span")
     span.classList.add("choresItems")
-    span.textContent = inputChoresList.value
-
+    span.textContent = item
 
 
     const button = document.createElement("button")
@@ -49,36 +43,30 @@ function renderRow(item){
    
     listContainer.append(individualLineDIV)
 
-    inputChoresList.value = ""
-   guardClause.textContent = ""
 }
 
 
 
-function addChores (){
-
-    
+function addChores(){
 
    if(!inputChoresList.value){
-    
-     
-
     guardClause.textContent = "Please Input a Value"
-
-    console.log(guardClause)
     inputChoresList.focus()
     return
    }
     
-   renderRow(inputChoresList.value)
+   choresLists.push(inputChoresList.value)
+   localStorage.setItem("choresLists", JSON.stringify(choresLists))
+
+   renderRow(inputChoresList.value)   
+   inputChoresList.value = ""
+
+
+
+
+console.log(choresLists)
+guardClause.textContent = ""
 }
-
-
-
-
-
-
-
 
 
 
@@ -88,8 +76,6 @@ inputChoresList.addEventListener('keydown', function(event){
         
         addChores() 
 
-
-
     }
 })
 
@@ -97,6 +83,14 @@ inputChoresList.addEventListener('keydown', function(event){
 addBtn.addEventListener('click', function(){
     addChores()
 
+})
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const saved = JSON.parse(localStorage.getItem("choresLists") || "[]")
+    choresLists = saved
+    renderAll(choresLists)
 })
 
 
@@ -122,14 +116,12 @@ listContainer.addEventListener('click', function(event){
     const btn = event.target.closest('.individualDeleteBtn-el')
     if(!btn) return
 
-    
 
     const row = btn.closest('.individualLine')
     
     row.remove()
 
     guardClause.textContent = ""
-
     
     
 })
