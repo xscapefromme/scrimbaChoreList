@@ -63,14 +63,12 @@ function addChores(){
     
    renderRow(inputChoresList.value)   
    inputChoresList.value = ""
+    guardClause.textContent = ""
 
-
-
-
-
-guardClause.textContent = ""
+    console.log(choresLists)
 
 }
+
 
 
 
@@ -98,9 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const saved = JSON.parse(localStorage.getItem("choresLists") || "[]")
     choresLists = saved
     
-    
-    
+
     renderAll(choresLists)
+
+    console.log(choresLists)
 })
 
 
@@ -115,6 +114,8 @@ deleteAllBtn.addEventListener('click', function(){
     localStorage.clear()
     choresLists = []
     
+
+    console.log(choresLists)
 })
 
 
@@ -122,35 +123,36 @@ deleteAllBtn.addEventListener('click', function(){
 // Individual Delete Line 
 listContainer.addEventListener('click', function(event){
     
-    
-
 
     const btn = event.target.closest('.individualDeleteBtn-el')
-    if(!btn) return
+    const row = btn.closest('.individualLine')
+    if(!btn) return;
     guardClause.textContent = ""
 
+    // selecting all the buttons currently showing on the DOM
 
-    const allBtns = listContainer.querySelectorAll('button')
+    const allBtns = listContainer.querySelectorAll("button")
 
-    const btnIndex = [allBtns].indexOf(btn)
-    
-    if (btnIndex !== -1){
-        choresLists.splice(btnIndex, 1)
+    // getting the index of the clicked button
+    const btnIndex = [...allBtns].indexOf(btn)
+
+    // displaying the list before deletion of the current item
+
+    if(btnIndex !== -1){
+        choresLists.splice(btnIndex, 1);
+        // displaying the list after deletion
+
+    console.log(choresLists)
     }
 
-
-    const row = btn.closest('.individualLine')
+    localStorage.setItem("choresLists", JSON.stringify(choresLists))
 
 
     row.remove()
 
-    localStorage.setItem("choresLists", JSON.stringify(choresLists))
-    
-
     renderAll(choresLists)
-
-    console.log(event.target, btn)
     
 })
+
 
 
