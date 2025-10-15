@@ -2,7 +2,7 @@
 Making a chore list utilizing JS and practicing localStorage as well as other JS concepts. Good project. Challenging.
 
 # Live site👇
-https://bestchoreslist.netlify.app/
+<a href="https://bestchoreslist.netlify.app/" target="_blank">Chores List</a>
  
  <h2>Things to work on Things I learned</h2>
  <ul>
